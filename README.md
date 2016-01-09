@@ -10,7 +10,16 @@ To test, use your favorite REST client (I use the Chrome App "Advanced Rest Clie
 
 You should see the response,
 
-  ``{"room":{"name":"testRoom","members":"testName:1452364323719","messages":["testName: your message"]}}``
+  ```json
+  {
+    "room":
+      {
+        "name":"Test Room",
+        "members":"Jeff:1452364323719,John:1452364325124",
+        "messages":["Jeff: hello", "John: Hey!"]
+      }
+  }
+  ```
   
 It's important to remember to URL Encode the parameters prior to sending, otherwise certain symbols such as '&' will be interpreted as a parameter instead of being part of the message. A website such as [URL Decoder/Encoder](http://meyerweb.com/eric/tools/dencoder/) can be used for manually encoding parameters.
 
