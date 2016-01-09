@@ -8,7 +8,7 @@ A live example is at http://singleendpointchatserver.herokuapp.com.
 To test, use your favorite REST client (I use the Chrome App "Advanced Rest Client") and do the following POST request,
 * POST http://singleendpointchatserver.herokuapp.com/api/v1/chatroom/testRoom?username=testName&message=your%20message&expireafter=300
 
-You should see the response,
+You should see a response with the format,
 
   ```json
   {
