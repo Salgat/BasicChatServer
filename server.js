@@ -41,6 +41,13 @@ app.post('/api/v1/chatroom/:roomName', function(request, response) {
   var message = request.query["message"];
   var expireAfter = request.query["expireafter"];
   
+  var validate = validateParameters(roomName, userName, message, expireAfter);
+  if (validate) {
+      response.status(400);
+      response.send(validate);
+      return;
+  }
+  
   if (!expireAfter) {
       expireAfter = defaultMemberExpiration;
   }
@@ -65,6 +72,28 @@ app.post('/api/v1/chatroom/:roomName', function(request, response) {
   });
   result();
 });
+
+/**
+ * Validates request parameters prior to using them.
+ */
+function validateParameters(roomName, userName, message, expireAfter) {
+    // Only letters, numbers, and underscore
+    var lettersNumbersAndUnderscoreTest = new RegExp(/^\w*$/);
+    if (!lettersNumbersAndUnderscoreTest.test(roomName)) {
+        return "Room name contains unsupported string literals: " + roomName;
+    }
+    if (!lettersNumbersAndUnderscoreTest.test(userName)) {
+        return "User name contains unsupported string literals: " + userName;
+    }
+    
+    // Messages can have any content since they do not interfere with any processing logic
+    
+    // Only integer number (since time is in ms since epoch)
+    var integerTest = new RegExp(/^\d+$/);
+    if (!integerTest.test(expireAfter)) {
+        return "Expire after must be an integer number: " + expireAfter;
+    }
+}
 
 /**
  * Add message (if provided) to chatroom, then update and return the state of the chat room.
