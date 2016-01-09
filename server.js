@@ -33,7 +33,7 @@ var maxMessagesPerRoom = 1000;
 var defaultMemberExpiration = 5*60; // By default, remove member from chatroom after 5 minutes
 
 /**
- * POST Username to Chatroom.
+ * POST Username to Chatroom and return result in response.
  */
 app.post('/api/v1/chatroom/:roomName', function(request, response) {
   var roomName = request.params.roomName;

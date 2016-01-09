@@ -24,7 +24,7 @@ All parameters are optional, which is useful when you just want to view the mess
 * [redis (database)](http://redis.io/)
 
 ### Running
-* Open the command line, change the directory to where this project is located, and enter command "npm start"
+* Open the command line, change the directory to where this project is located, and enter command "npm install" then "npm start".
 
 ### Description
 Single Endpoint Chat Server was created to provide an easy way for users to setup a chatroom with minimal requirements for the client. The consumer of this service simply has to use one POST endpoint. While this service does not provide user authentication, the following features are supported,
