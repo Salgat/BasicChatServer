@@ -39,5 +39,7 @@ All parameters are optional, which is useful when you just want to view the mess
 Single Endpoint Chat Server was created to provide an easy way for users to setup a chatroom with minimal requirements for the client. The consumer of this service simply has to use one POST endpoint. While this service does not provide user authentication, the following features are supported,
 
 1) Custom chat rooms created on-demand.
+
 2) Everything is customizable, from the username, to how long the username appears in a chatroom's member list, to being able to completely anonymously view chatrooms.
+
 3) High performance using redis.
