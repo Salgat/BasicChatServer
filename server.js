@@ -49,11 +49,6 @@ app.post('/api/v1/chatroom/:roomName', function(request, response) {
       userName = "Guest";
   }
   
-  console.log("Room Name: " + roomName);
-  console.log("User Name: " + userName);
-  console.log("Message: " + message);
-  console.log("Expires After: " + expireAfter);
-  
   var result = async (function() {
     var chatRoomState = await (updateChatRoom(roomName, userName, message, expireAfter));
   
@@ -77,11 +72,9 @@ app.post('/api/v1/chatroom/:roomName', function(request, response) {
 function updateChatRoom(roomName, userName, message, expireAfter) {
     if (userName != "Guest" && message) {
         // Add the message if it is provided and keep only the last 1000 messages
-        console.log("Adding message");
         var messagesKey = roomName+':messages';
         redis.lpush(messagesKey, userName+': '+message);
         redis.ltrim(messagesKey, 0, 999);
-        console.log('Message added');
     }
     
     // Get chat room messages
@@ -115,10 +108,8 @@ function retrieveChatRoomMessages(roomName) {
  * Remove all expired members from the current chat room.
  */
 function removeExpiredMembers(roomName) {
-    console.log("Removing expired members");
     var members = null;
     return await (redis.getAsync(roomName+':members').then(function(response) {
-        console.log(response);
         if (response) {
             members = response.split(',');
             var membersDictionary = {};
@@ -126,7 +117,6 @@ function removeExpiredMembers(roomName) {
                 // Populate a dictionary of all members and their last timestamp
                 var member = entry.split(':')[0];
                 var timestamp = entry.split(':')[1];
-                console.log("Setting member to timestamp: " + member + ', ' + timestamp);
                 membersDictionary[member] = timestamp;
             });
             
@@ -145,9 +135,7 @@ function removeExpiredMembers(roomName) {
                 }
             }
             
-            console.log("Settting room to member list to: " + roomName+':members' + ', ' + members);
             redis.set(roomName+':members', members);
-               console.log("Finished removing expiring members");
             return members;
         }
     }));
@@ -157,10 +145,8 @@ function removeExpiredMembers(roomName) {
  * Adds user name to member list in chat room.
  */
 function addUserToChatRoom(roomName, userName, expireAfter) {
-    console.log("Adding user to chatroom");
     var timestamp = moment().valueOf() + expireAfter*1000;
     return await (redis.getAsync(roomName+':members').then(function(response) {
-        console.log(response);
         var memberList = '';
         if (!response) {
             memberList += userName+':'+timestamp;
