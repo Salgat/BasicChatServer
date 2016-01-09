@@ -1,0 +1,25 @@
+{
+  "name": "basic-chat-server",
+  "version": "0.1.0",
+  "description": "A basic chat server.",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://salgat@github.com/Salgat/BasicChatServer.git"
+  },
+  "author": "Austin Salgat",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Salgat/BasicChatServer/issues"
+  },
+  "homepage": "https://github.com/Salgat/BasicChatServer#readme",
+  "dependencies": {
+    "cors": "^2.7.1",
+    "express": "^4.13.3",
+    "redis": "^2.4.2",
+    "request": "^2.67.0"
+  }
+}
