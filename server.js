@@ -18,10 +18,20 @@ if (process.env.REDIS_URL) {
   redis = redisLib.createClient();
 }
 
+var limiter = require('express-limiter')(app, redis);
+limiter({
+  path: '/api/v1/chatroom/:roomName',
+  method: 'post',
+  lookup: ['connection.remoteAddress'],
+  // 20 requests per second per IP
+  total: 20*60*60,
+  expire: 1000 * 60 * 60
+})
+
 app.set('port', (process.env.PORT || 5000));
 
 app.listen(app.get('port'), function() {
-  console.log('BasicChatServer is running on port', app.get('port'));
+  console.log('Single Endpoint Chat Server is running on port', app.get('port'));
 });
 
 redis.on('connect', function() {
